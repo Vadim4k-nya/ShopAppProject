@@ -345,7 +345,7 @@ void ShowStorage()
 	std::cout << "ID\tНазвание\t\tЦена\tКол-во\n";
 	for (int i = 0; i < size; i++)
 	{
-		std::cout << idArr[i] << '\t' << std::left << std::setw(30) << nameArr[i] << '\t' << priceArr[i] << '\t' << countArr[i] << '\n';
+		std::cout << idArr[i] << '\t' << std::left << std::setw(20) << nameArr[i] << '\t' << priceArr[i] << '\t' << countArr[i] << '\n';
 	}
 	std::cout << "\n\n\n\n";
 }
@@ -692,33 +692,30 @@ void ChangeStorage()
 {
 	std::string choose;
 	std::cout << "Изменение склада магазина\n";
-	for (int i = 0; i < userCount; i++)
-	{
-		std::cout << i + 1 << "\t" << std::left << std::setw(10) << loginArr[i] << "\t" << passwordArr[i] << '\n';
-	}
 
 	do
 	{
 		std::cout << '\n'
-			<< "1) Добавить новый товара\n"
-			<< "2) Изменить имени\n"
+			<< "1) Добавить новый товар\n"
+			<< "2) Изменить имя товара\n"
 			<< "3) Удалить товар\n\n"
 			<< "0) Выход\n\n\n ?> ";
 		std::getline(std::cin, choose, '\n');
 		system("cls");
 	} while (choose.size() > 1 || choose[0] < 48 || choose[0] > 51);
+
 	if (choose == "1")
 	{
 		AddProduct();
 	}
 	else if (choose == "2")
 	{
-		void ChangeProductName();
+		ChangeProductName();
 
 	}
 	else if (choose == "3")
 	{
-		void DeleteProduct();
+		DeleteProduct();
 	}
 	else if (choose == "0")
 	{
@@ -741,6 +738,7 @@ void AddProduct()
 			<< "1) Добавить новый товар\n\n"
 			<< "0) Выход\n\n\n ?> ";
 			std::getline(std::cin, choose, '\n');
+
 			if (choose == "0")
 			{
 				break;
@@ -781,6 +779,7 @@ void AddProduct()
 				}
 
 				std::string newCountStr, newPriceStr, newName;
+				idArr[size - 1] = idArr[size - 2] + 1;
 
 				while (true)
 				{
@@ -789,6 +788,7 @@ void AddProduct()
 
 					if (newName.size() <= 30)
 					{
+						nameArr[size - 1] = newName;
 						break;
 					}
 					else
@@ -801,6 +801,7 @@ void AddProduct()
 				{
 					std::cout << "Введите количество нового товара: ";
 					std::getline(std::cin, newCountStr, '\n');
+
 					if (IsNumber(newCountStr))
 					{
 						if (std::stoi(newCountStr) >= 0 && std::stoi(newCountStr) < 1000)
@@ -842,120 +843,12 @@ void AddProduct()
 				delete[]tempCount;
 				delete[]tempPrice;
 				delete[]tempName;
-				//test tempName 
-				for (int i = 0; i < size; i++)
-				{
-					std::cout << i + 1 << "\t" << std::left << std::setw(10) << loginArr[i] << "\t" << passwordArr[i] << '\n';
-				}
+				break;
 			}
 			else
 			{
 				std::cout << "Некоректный ввод.";
 			}
-	}
-
-	
-
-	int* tempId = new int[size];
-	int* tempCount = new int[size];
-	double* tempPrice = new double[size];
-	std::string* tempName = new std::string[size];
-
-
-
-	for (int i = 0; i < size; i++)
-	{
-		tempId[i] = idArr[i];
-		tempCount[i] = countArr[i];
-		tempPrice[i] = priceArr[i];
-		tempName[i] = nameArr[i];
-	}
-
-	delete[]idArr;
-	delete[]countArr;
-	delete[]priceArr;
-	delete[]nameArr;
-
-	size++;
-
-	idArr = new int[size];
-	countArr = new int[size];
-	priceArr = new double[size];
-	nameArr = new std::string[size];
-
-	for (int i = 0; i < size - 1; i++)
-	{
-		idArr[i] = tempId[i];
-		countArr[i] = tempCount[i];
-		priceArr[i] = tempPrice[i];
-		nameArr[i] = tempName[i];
-	}
-
-	std::string newCountStr, newPriceStr, newName;
-
-	while (true)
-	{
-		std::cout << "Введите имя нового товара: ";
-		std::getline(std::cin, newName, '\n');
-
-		if (newName.size() <= 30)
-		{
-			break;
-		}
-		else
-		{
-			std::cout << "Максимальная длинна названия 30 символов.";
-		}
-	}
-
-	while (true)
-	{
-		std::cout << "Введите количество нового товара: ";
-		std::getline(std::cin, newCountStr, '\n');
-		if (IsNumber(newCountStr))
-		{
-			if (std::stoi(newCountStr) >= 0 && std::stoi(newCountStr) < 1000)
-			{
-				countArr[size - 1] = std::stoi(newCountStr);
-				break;
-			}
-		}
-		else
-		{
-			std::cout << "Некоректный ввод.";
-		}
-	}
-
-	while (true)
-	{
-		std::cout << "Введите цену нового товара: ";
-		std::getline(std::cin, newPriceStr, '\n');
-		if (IsNumber(newPriceStr))
-		{
-			if (std::stod(newPriceStr) >= 0 && std::stod(newPriceStr) < 10000000)
-			{
-				priceArr[size - 1] = std::stod(newPriceStr);
-				break;
-			}
-			else
-			{
-				std::cout << "Некоректная цена.";
-			}
-
-			idArr[size - 1] = size;
-			std::cout << idArr[size - 1] << "\t" << std::left << std::setw(10) << nameArr[size - 1] << "\t" << priceArr[size - 1] << '\n' << "\n\nНовый товар успешно добавлен на склад.";
-
-
-			delete[]tempId;
-			delete[]tempCount;
-			delete[]tempPrice;
-			delete[]tempName;
-			break;
-		}
-		else
-		{
-			std::cout << "Некоректный ввод.";
-		}
 	}
 }
 
@@ -966,7 +859,7 @@ void ChangeProductName()
 	while (true)
 	{
 		std::cout
-			<< "1) Добавить новый товар\n\n"
+			<< "1) Изменить имя товара\n\n"
 			<< "0) Выход\n\n\n ?> ";
 		std::getline(std::cin, choose, '\n');
 		if (choose == "0")
@@ -984,9 +877,9 @@ void ChangeProductName()
 				std::getline(std::cin, idStr, '\n');
 				if (IsNumber(idStr))
 				{
+					id = std::stoi(idStr);
 					if (id > 0 && id <= size)
 					{
-						id = std::stoi(idStr);
 						break;
 					}
 					else
@@ -1005,11 +898,12 @@ void ChangeProductName()
 				std::getline(std::cin, newName, '\n');
 				if (newName.size() <= 30)
 				{
-
+					nameArr[id - 1] = newName;
+					break;
 				}
 				else
 				{
-					std::cout << "\n\nМаксимао=лная длинна названия 30 символов\n\n";
+					std::cout << "\n\nМаксимальная длинна названия 30 символов\n\n";
 				}
 			}
 		}
@@ -1048,9 +942,9 @@ void DeleteProduct()
 				std::getline(std::cin, idStr, '\n');
 				if (IsNumber(idStr))
 				{
+					id = std::stoi(idStr);
 					if (id > 0 && id <= size)
 					{
-						id = std::stoi(idStr);
 						break;
 					}
 					else
@@ -1114,110 +1008,6 @@ void DeleteProduct()
 			delete[]tempCount;
 			delete[]tempPrice;
 			delete[]tempName;
-		}
-		else
-		{
-			std::cout << "Некоректный ввод.";
-		}
-	}
-
-
-
-	int* tempId = new int[size];
-	int* tempCount = new int[size];
-	double* tempPrice = new double[size];
-	std::string* tempName = new std::string[size];
-
-
-
-	for (int i = 0; i < size; i++)
-	{
-		tempId[i] = idArr[i];
-		tempCount[i] = countArr[i];
-		tempPrice[i] = priceArr[i];
-		tempName[i] = nameArr[i];
-	}
-
-	delete[]idArr;
-	delete[]countArr;
-	delete[]priceArr;
-	delete[]nameArr;
-
-	size++;
-
-	idArr = new int[size];
-	countArr = new int[size];
-	priceArr = new double[size];
-	nameArr = new std::string[size];
-
-	for (int i = 0; i < size - 1; i++)
-	{
-		idArr[i] = tempId[i];
-		countArr[i] = tempCount[i];
-		priceArr[i] = tempPrice[i];
-		nameArr[i] = tempName[i];
-	}
-
-	std::string newCountStr, newPriceStr, newName;
-
-	while (true)
-	{
-		std::cout << "Введите имя нового товара: ";
-		std::getline(std::cin, newName, '\n');
-
-		if (newName.size() <= 30)
-		{
-			break;
-		}
-		else
-		{
-			std::cout << "Максимальная длинна названия 30 символов.";
-		}
-	}
-
-	while (true)
-	{
-		std::cout << "Введите количество нового товара: ";
-		std::getline(std::cin, newCountStr, '\n');
-		if (IsNumber(newCountStr))
-		{
-			if (std::stoi(newCountStr) >= 0 && std::stoi(newCountStr) < 1000)
-			{
-				countArr[size - 1] = std::stoi(newCountStr);
-				break;
-			}
-		}
-		else
-		{
-			std::cout << "Некоректный ввод.";
-		}
-	}
-
-	while (true)
-	{
-		std::cout << "Введите цену нового товара: ";
-		std::getline(std::cin, newPriceStr, '\n');
-		if (IsNumber(newPriceStr))
-		{
-			if (std::stod(newPriceStr) >= 0 && std::stod(newPriceStr) < 10000000)
-			{
-				priceArr[size - 1] = std::stod(newPriceStr);
-				break;
-			}
-			else
-			{
-				std::cout << "Некоректная цена.";
-			}
-
-			idArr[size - 1] = size;
-			std::cout << "\n\nТОвар успешно удалён\n\n";
-
-
-			delete[]tempId;
-			delete[]tempCount;
-			delete[]tempPrice;
-			delete[]tempName;
-			break;
 		}
 		else
 		{
