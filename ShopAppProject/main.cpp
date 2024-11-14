@@ -91,6 +91,11 @@ int main()
 	delete[]countArr;
 	delete[]priceArr;
 
+	delete[]countCheckArr;
+	delete[]priceCheckArr;
+	delete[]totalPriceCheckArr;
+	delete[]nameCheckArr;
+
 	return 0;
 }
 //===================
