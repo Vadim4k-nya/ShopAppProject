@@ -50,6 +50,8 @@ double cash = 10000;
 double webMoney = 0;
 double cashMoney = 0;
 
+bool discount500 = false, discount1000 = false;
+
 //Функции
 void Start();
 bool Login();
@@ -80,6 +82,7 @@ void AddProduct();
 void ChangeProductName();
 void DeleteProduct();
 
+void chekDiscount(double totalSum);
 
 bool IsNumber(std::string string);
 
@@ -404,6 +407,7 @@ void Selling()
 	int id{}, count{};
 	bool isFirst = true;
 	double totalSum = 0;
+	double totalDiscount = 0;
 
 	checkSize = 1;
 
@@ -437,8 +441,22 @@ void Selling()
 			{
 				if (!isFirst)
 				{
-
+					chekDiscount(totalSum);
+					if (discount1000)
+					{
+						totalSum -= 1000;
+						totalDiscount += 1000;
+					}
+					if (discount500)
+					{
+						totalSum -= 500;
+						totalDiscount += 500;
+					}
+					
+					
 					PrintCheck();
+
+					std::cout << "Скидка: " << totalDiscount << "\n\n";
 
 					while (true)
 					{
@@ -602,12 +620,14 @@ void AddCheckItem()
 
 void PrintCheck()
 {
+	system("cls");
 	std::cout << "№\tНазвание\t\tЦена\tКол-во\tИтого\n";
 	for (int i = 0; i < checkSize; i++)
 	{
 		std::cout << i + 1 << '\t' << std::left << std::setw(20) << nameCheckArr[i] << '\t' << priceCheckArr[i] << '\t' << countCheckArr[i] << '\t' << totalPriceCheckArr[i] << '\n';
 	}
 	std::cout << "\n\n";
+	
 }
 
 void IncomeStatement()
@@ -1319,6 +1339,19 @@ void DeleteProduct()
 		{
 			std::cout << "Некоректный ввод.";
 		}
+	}
+}
+
+
+void chekDiscount(double totalSum)
+{
+	if (totalSum > 2500)
+	{
+		discount500 = true;
+	}
+	if (totalSum > 5000)
+	{
+		discount1000 = true;
 	}
 }
 
