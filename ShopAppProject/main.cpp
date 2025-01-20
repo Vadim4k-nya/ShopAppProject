@@ -28,6 +28,7 @@ std::string* passwordArr = new std::string[userCount]{ "admin", "user" };
 //-----------------------------------------------------------------------
 
 
+
 // Склад
 int size = 10;
 int* idArr = new int[size];
