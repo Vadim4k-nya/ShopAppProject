@@ -297,7 +297,6 @@ void ShopUserMenu()
 	{
 		do
 		{
-			system("pause");
 			system("cls");
 
 			std::cout
@@ -613,6 +612,7 @@ void PrintCheck()
 
 void IncomeStatement()
 {
+	system("cls");
 	std::cout << "\tОтчёт о прибылиn\n\n"
 		<< "прибыль на наличный расчёт:\t" << cashMoney << '\n'
 		<< "Прибыль за безналичный расчёт:\t" << webMoney << '\n'
@@ -623,6 +623,7 @@ void IncomeStatement()
 
 void ShowStorage()
 {
+	system("cls");
 	std::cout << "ID\tНазвание\t\tЦена\tКол-во\n";
 	for (int i = 0; i < size; i++)
 	{
@@ -633,6 +634,7 @@ void ShowStorage()
 
 void RefilStorage()
 {
+	system("cls");
 	std::string idStr, addStr;
 	int id{}, add{};
 
@@ -684,6 +686,7 @@ void RefilStorage()
 
 void WriteOfFromStorage()
 {
+	system("cls");
 	std::string idStr, delStr;
 	int id{}, del{};
 
@@ -735,6 +738,7 @@ void WriteOfFromStorage()
 
 void ChangePrice()
 {
+	system("cls");
 	std::string idStr, newPriceStr;
 	int id{};
 	double newPrice{};
@@ -787,6 +791,7 @@ void ChangePrice()
 
 void ChangeSraff()
 {
+	system("cls");
 	std::string choose;
 	std::cout << "Изменение персонала магазина\n";
 	for (int i = 0; i < userCount; i++)
@@ -828,6 +833,7 @@ void ChangeSraff()
 
 void AddEmployer()
 {
+	system("cls");
 	std::string* tempLogin = new std::string[userCount];
 	std::string* tempPass = new std::string[userCount];
 	for (int i = 0; i < userCount; i++)
@@ -869,6 +875,7 @@ void AddEmployer()
 
 void EmployeeEdit()
 {
+	system("cls");
 	std::string chooseId, newLogin, newPass;
 	int empId{};
 
@@ -912,6 +919,7 @@ void EmployeeEdit()
 
 void DeleteEmployee()
 {
+	system("cls");
 	std::string chooseId;
 	int empId{};
 	while (true)
@@ -971,6 +979,7 @@ void DeleteEmployee()
 
 void ChangeStorage()
 {
+	system("cls");
 	std::string choose;
 	std::cout << "Изменение склада магазина\n";
 
@@ -1013,6 +1022,7 @@ void AddProduct()
 
 	while (true)
 	{
+		system("cls");
 		std::cout
 			<< "1) Добавить новый товар\n\n"
 			<< "0) Выход\n\n\n ?> ";
@@ -1152,6 +1162,7 @@ void ChangeProductName()
 
 	while (true)
 	{
+		system("cls");
 		std::cout
 			<< "1) Изменить имя товара\n\n"
 			<< "0) Выход\n\n\n ?> ";
@@ -1215,6 +1226,7 @@ void DeleteProduct()
 
 	while (true)
 	{
+		system("cls");
 		std::cout
 			<< "1) Удалить товар\n\n"
 			<< "0) Выход\n\n\n ?> ";
