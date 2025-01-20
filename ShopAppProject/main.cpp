@@ -34,6 +34,8 @@ int* idArr = new int[size];
 std::string* nameArr = new std::string[size];
 int* countArr = new int[size];
 double* priceArr = new double[size];
+bool isDynamicStorage = false;
+bool isFirstProduct = true;
 
 // Чек
 int checkSize = 1;
@@ -138,7 +140,8 @@ void Start()
 			}
 			else
 			{
-				// создание динамического склада
+				isDynamicStorage = true;
+				CreateDynamicStorage();
 			}
 
 			ShopAdminMenu();
@@ -390,7 +393,8 @@ void CreateStaticStorage()
 
 void CreateDynamicStorage() 
 {
-
+	AddProduct();
+	ChangeStorage();
 }
 
 
@@ -987,7 +991,6 @@ void ChangeStorage()
 	else if (choose == "2")
 	{
 		ChangeProductName();
-
 	}
 	else if (choose == "3")
 	{
@@ -1013,7 +1016,7 @@ void AddProduct()
 			<< "1) Добавить новый товар\n\n"
 			<< "0) Выход\n\n\n ?> ";
 			std::getline(std::cin, choose, '\n');
-
+			system("cls");
 			if (choose == "0")
 			{
 				break;
@@ -1038,6 +1041,10 @@ void AddProduct()
 				delete[]priceArr;
 				delete[]nameArr;
 
+				if (isDynamicStorage && isFirstProduct)
+				{
+					size = 0;
+				}
 				size++;
 
 				idArr = new int[size];
@@ -1054,7 +1061,17 @@ void AddProduct()
 				}
 
 				std::string newCountStr, newPriceStr, newName;
-				idArr[size - 1] = idArr[size - 2] + 1;
+
+				if (isDynamicStorage && isFirstProduct)
+				{
+					idArr[size - 1] = 1;
+					isFirstProduct = false;
+				}
+				else
+				{
+					idArr[size - 1] = idArr[size - 2] + 1;
+				}
+				
 
 				while (true)
 				{
@@ -1118,6 +1135,7 @@ void AddProduct()
 				delete[]tempCount;
 				delete[]tempPrice;
 				delete[]tempName;
+				system("cls");
 				break;
 			}
 			else
